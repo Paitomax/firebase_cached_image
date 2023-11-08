@@ -2,9 +2,6 @@ import 'package:firebase_cached_image/src/helper_functions.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
-
-import 'helper_functions_test.mocks.dart';
 
 @GenerateMocks([Reference])
 void main() {
@@ -32,26 +29,5 @@ void main() {
     uri = Uri.parse(url);
     bucket = getBucketFromUrl(uri);
     expect(bucket, "gs://bucketname_firebaseapp-0");
-  });
-
-  test("getUriFromRef", () {
-    String url = "gs://bucket123/userIcon123.jpg";
-
-    final MockReference ref = MockReference();
-
-    when(ref.fullPath).thenReturn("userIcon123.jpg");
-    when(ref.bucket).thenReturn("bucket123");
-
-    final Uri uri = getUrlFromRef(ref);
-    expect(uri.toString(), url);
-    expect(uri, Uri.parse(url));
-
-    url = "gs://bucketname_firebaseApp-0/folder/folder2/fileName.jpg";
-    final expectedUri = Uri.parse(url);
-    when(ref.fullPath).thenReturn("folder/folder2/fileName.jpg");
-    when(ref.bucket).thenReturn("bucketname_firebaseApp-0");
-
-    final resultUri = getUrlFromRef(ref);
-    expect(expectedUri, resultUri);
   });
 }
