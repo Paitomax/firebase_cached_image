@@ -68,10 +68,9 @@ class FirebaseImageProvider extends ImageProvider<FirebaseImageProvider> {
   }) : _cacheManager = FirebaseCacheManager(subDir: subDir);
 
   @override
-  ImageStreamCompleter loadBuffer(
+  ImageStreamCompleter loadImage(
     FirebaseImageProvider key,
-    // ignore: deprecated_member_use
-    DecoderBufferCallback decode,
+    ImageDecoderCallback decode,
   ) {
     final chunkEvents = StreamController<ImageChunkEvent>();
 
@@ -90,8 +89,7 @@ class FirebaseImageProvider extends ImageProvider<FirebaseImageProvider> {
   Future<Codec> _loadAsync(
     FirebaseImageProvider key,
     StreamController<ImageChunkEvent> chunkEvents,
-    // ignore: deprecated_member_use
-    DecoderBufferCallback decode,
+    ImageDecoderCallback decode,
   ) async {
     try {
       chunkEvents.add(
